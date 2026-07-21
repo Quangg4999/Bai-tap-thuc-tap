@@ -17,6 +17,7 @@ Bai-tap-thuc-tap/
 ├── 3.1/            Registry Editor CLI
 ├── 3.2/            Service Controller
 ├── 4.1/            PE File Parser
+├── docs/images/    Ảnh minh họa dùng trong README
 ├── .gitignore
 └── README.md
 ```
@@ -51,6 +52,12 @@ Bai-tap-thuc-tap/
 | Thư mục | Bài tập | Mô tả ngắn |
 |---|---|---|
 | `4.1` | PE File Parser | Phân tích file PE và hiển thị DOS Header, NT Header, File Header, Optional Header (kèm Data Directories), Section Headers, cùng các bảng Export, Import, Resource và Relocation. |
+
+**Kết quả chạy chương trình:**
+
+![Giao diện PE Parser hiển thị DOS Header của notepad.exe](docs/images/4.1-pe-parser.png)
+
+Giao diện Win32 với cây điều hướng bên trái và bảng ba cột (Trường — Giá trị — Ý nghĩa) bên phải, đang phân tích `C:\Windows\notepad.exe` (PE32+ 64-bit).
 
 ## Môi trường
 
