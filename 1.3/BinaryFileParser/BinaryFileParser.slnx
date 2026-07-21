@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="BinaryFileParser/BinaryFileParser.vcxproj" Id="9176a461-9459-411b-ab38-5531c9e2454b" />
+</Solution>

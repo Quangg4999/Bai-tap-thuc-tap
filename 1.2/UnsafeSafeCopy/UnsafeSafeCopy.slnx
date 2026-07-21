@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="UnsafeSafeCopy/UnsafeSafeCopy.vcxproj" Id="be90a08d-1f98-4f80-a778-492681c4255a" />
+</Solution>

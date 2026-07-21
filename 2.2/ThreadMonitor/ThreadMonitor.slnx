@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="ThreadMonitor/ThreadMonitor.vcxproj" Id="45aab511-cce2-4c32-bab4-c2f3c3b496a0" />
+</Solution>

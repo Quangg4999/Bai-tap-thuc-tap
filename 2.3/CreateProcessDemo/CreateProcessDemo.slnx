@@ -1,0 +1,8 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="ChildApp/ChildApp.vcxproj" Id="a573c477-e007-413c-bead-2cd5225e7799" />
+  <Project Path="CreateProcessDemo/CreateProcessDemo.vcxproj" Id="a344ccda-548e-4aa8-82dc-1dac49d60678" />
+</Solution>

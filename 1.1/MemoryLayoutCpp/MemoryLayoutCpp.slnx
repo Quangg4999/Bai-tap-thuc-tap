@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="MemoryLayoutCpp/MemoryLayoutCpp.vcxproj" Id="0b67d00e-a228-4bfc-85b9-a1d640531b98" />
+</Solution>
