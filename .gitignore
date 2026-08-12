@@ -5,3 +5,11 @@ Release/
 *.vsidx
 *.suo
 *.user
+# Visual Studio - trang thai IDE cua rieng may, co the nang hang tram MB
+.vs/
+*.suo
+*.user
+# Visual Studio - trang thai IDE, co the nang hang tram MB
+.vs/
+*.suo
+*.user
