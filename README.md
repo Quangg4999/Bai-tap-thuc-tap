@@ -1,4 +1,4 @@
-# AvScan — Hệ thống quét file kiểu Antivirus (Bài 5.1 & 5.2)
+# AvScan — (Bài 5.1 & 5.2)
 
 Service + Engine DLL + Client giao tiếp qua Windows Named Pipe.
 Viết bằng C thuần, Win32 API, build bằng Visual Studio 2022 (x64).
