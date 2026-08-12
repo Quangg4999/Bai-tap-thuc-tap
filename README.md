@@ -197,7 +197,7 @@ Cấu hình trong `service.c` khi demo:
 client.exe scan "C:\Windows\explorer.exe" --verbose
 ```
 
-![Framing và backpressure](5.2/docs/images/01-framing-backpressure.jpg)
+![Framing và backpressure](5/5.2/docs/images/01-framing-backpressure.jpg)
 
 **Giải thích:**
 
@@ -211,7 +211,7 @@ Các dòng `[FRAMING] ReadFile tra ve 116 byte -> du 116/20` cho thấy **sticky
 
 ---
 
-![Telemetry](5.2/docs/images/02-telemetry.jpg)
+![Telemetry](5/5.2/docs/images/02-telemetry.jpg)
 
 **Giải thích:**
 
@@ -234,7 +234,7 @@ badclient.exe pid
 badclient.exe user
 ```
 
-![Ba lớp phòng thủ](5.2/docs/images/03-badclient.jpg)
+![Ba lớp phòng thủ](5/5.2/docs/images/03-badclient.jpg)
 
 **Giải thích:**
 
@@ -290,7 +290,7 @@ Sửa `engineapi.h`: `ENGINE_VERSION_MINOR` từ `0` thành `1`, build lại pro
 service.exe start
 ```
 
-![Cache vô hiệu khi update engine](5.2/docs/images/04-cache-invalidate.jpg)
+![Cache vô hiệu khi update engine](5/5.2/docs/images/04-cache-invalidate.jpg)
 
 **Giải thích:**
 ```
@@ -324,7 +324,7 @@ Ngày 2: quét lại → file không đổi → CACHE HIT → trả về SAFE
 client.exe scan "C:\Windows\explorer.exe" --verbose
 ```
 
-![Sau khi update engine](5.2/docs/images/05-sau-update-engine.jpg)
+![Sau khi update engine](5/5.2/docs/images/05-sau-update-engine.jpg)
 
 **Giải thích:**
 
@@ -389,7 +389,7 @@ client.exe scan "D:\AvScan52\bin\notpe.txt"
 client.exe scan "D:\AvScan52\bin\truncated.exe"
 ```
 
-![Phát hiện file PE hỏng](5.2/docs/images/06-pe-malformed.jpg)
+![Phát hiện file PE hỏng](5/5.2/docs/images/06-pe-malformed.jpg)
 
 **Giải thích:**
 
