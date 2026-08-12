@@ -355,12 +355,11 @@ client.exe scan "C:\Windows\explorer.exe" --verbose
 client.exe scan "C:\Windows\explorer.exe" --verbose
 ```
 
-> 📸 **ẢNH 6** — Dòng `[PE INFO]` đầy đủ 11 thông số
-> Chưa chụp được. Xem hướng dẫn ở mục [Ảnh còn thiếu](#ảnh-còn-thiếu) bên dưới.
+![Kết quả chấm điểm PE](docs/images/05-sau-update-engine.jpg)
 
 **Giải thích:**
 
-Khối `detail` trong ảnh 1 và ảnh 5 đã cho thấy kết quả chấm điểm:
+Khối `detail` cho thấy kết quả chấm điểm:
 
 ```
 +1.0 TimeDateStamp qua cu (truoc 1995);          <- nhóm A
@@ -381,6 +380,8 @@ Bốn nhóm rule cùng kích hoạt trên một file.
 Dòng `-2.0 Chu ky Authenticode hop le` là kết quả `WinVerifyTrust` thật với `WINTRUST_ACTION_GENERIC_VERIFY_V2`, kiểm được cả chuỗi chứng chỉ — không chỉ xem DataDirectory[4] có khác 0 hay không.
 
 Toàn bộ thông số parse **bằng tay từ byte thô**, không dùng `ImageNtHeader()`. Lý do: Windows API từ chối file PE hỏng — mà file hỏng chính là thứ cần phát hiện. Ngoài ra `LoadLibraryEx` có thể **thực thi code** trong file, cực nguy hiểm khi quét malware.
+
+> **Lưu ý về ảnh trên:** không thấy dòng `[PE INFO]` chứa 11 thông số PE vì nó thuộc lớp verbose và đã bị bỏ khi hàng đợi đầy (`dropped=3`) — chính là hiện tượng backpressure ở Demo 1. Xem mục [Ảnh còn thiếu](#ảnh-còn-thiếu) để biết cách chụp dòng đó.
 
 ---
 

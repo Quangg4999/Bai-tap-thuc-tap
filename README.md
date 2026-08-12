@@ -98,6 +98,9 @@ D:\AvScan52\
 ├── service\      project VS
 └── client\       project VS
 ```
+
+> Đường dẫn phải **thuần ASCII, không dấu tiếng Việt**. Ký tự ngoài ASCII làm hỏng `BINARY_PATH_NAME` khi đăng ký service.
+
 ### File cho từng project
 
 | Project | File `.c` | Cấu hình đặc biệt |
@@ -168,6 +171,8 @@ service.exe uninstall
 ---
 
 ## Demo
+
+Bốn demo phủ 15/23 yêu cầu của đề bài.
 
 ### Chuẩn bị
 
@@ -293,6 +298,9 @@ service.exe start
 ![Cache vô hiệu khi update engine](5/5.2/docs/images/04-cache-invalidate.jpg)
 
 **Giải thích:**
+
+Ba dòng log kể trọn câu chuyện:
+
 ```
 Da nap engine.dll, phien ban = 201, fingerprint = 0x5A6734D7
 Cache: fingerprint cu 0x5A6734D6 != moi 0x5A6734D7 -> VO HIEU TOAN BO (6 muc)
@@ -332,7 +340,7 @@ client.exe scan "C:\Windows\explorer.exe" --verbose
 
 `fromCache=0` — file này **đã từng được quét** trước khi update engine, nhưng cache không còn dùng được. Engine mới chạy lại từ đầu, đủ 5 giai đoạn.
 
-Đây là bằng chứng: cache bị vô hiệu ở phía service (ảnh trên) và engine mới thực sự được gọi ở phía client (ảnh này).
+Đây là bằng chứng khép kín: cache bị vô hiệu ở phía service (ảnh trên) và engine mới thực sự được gọi ở phía client (ảnh này).
 
 > Sau demo, đổi `ENGINE_VERSION_MINOR` về `0` và build lại.
 
@@ -347,10 +355,11 @@ client.exe scan "C:\Windows\explorer.exe" --verbose
 client.exe scan "C:\Windows\explorer.exe" --verbose
 ```
 
+![Kết quả chấm điểm PE](5/5.2/docs/images/05-sau-update-engine.jpg)
 
 **Giải thích:**
 
-Khối `detail` trong ảnh 1 và ảnh 5 đã cho thấy kết quả chấm điểm:
+Khối `detail` cho thấy kết quả chấm điểm:
 
 ```
 +1.0 TimeDateStamp qua cu (truoc 1995);          <- nhóm A
@@ -371,6 +380,8 @@ Bốn nhóm rule cùng kích hoạt trên một file.
 Dòng `-2.0 Chu ky Authenticode hop le` là kết quả `WinVerifyTrust` thật với `WINTRUST_ACTION_GENERIC_VERIFY_V2`, kiểm được cả chuỗi chứng chỉ — không chỉ xem DataDirectory[4] có khác 0 hay không.
 
 Toàn bộ thông số parse **bằng tay từ byte thô**, không dùng `ImageNtHeader()`. Lý do: Windows API từ chối file PE hỏng — mà file hỏng chính là thứ cần phát hiện. Ngoài ra `LoadLibraryEx` có thể **thực thi code** trong file, cực nguy hiểm khi quét malware.
+
+> **Lưu ý về ảnh trên:** không thấy dòng `[PE INFO]` chứa 11 thông số PE vì nó thuộc lớp verbose và đã bị bỏ khi hàng đợi đầy (`dropped=3`) — chính là hiện tượng backpressure ở Demo 1. Xem mục [Ảnh còn thiếu](#ảnh-còn-thiếu) để biết cách chụp dòng đó.
 
 ---
 
@@ -423,6 +434,46 @@ if (st == PE_STRUCT_CORRUPT) {
 Mọi truy cập trong `pereader.c` đều kiểm tra biên bằng `InBuf()`, viết `len > size - off` thay vì `off + len > size` để **tránh tràn số** — phép cộng có thể quay vòng và cho kết quả sai.
 
 ---
+
+## Ảnh còn thiếu
+
+Một ảnh chưa chụp được: **dòng `[PE INFO]` với đủ 11 thông số PE**.
+
+Lý do: cấu hình demo đang đặt `OUTQ_SIZE = 4`, khiến `PE INFO` (lớp verbose) bị bỏ khi hàng đợi đầy — chính là hiện tượng `dropped=3` ở Demo 1.
+
+Muốn chụp ảnh này, trả cấu hình về giá trị thật rồi quét lại:
+
+**Bước 1** — Sửa `service.c`:
+```c
+#define OUTQ_SIZE        128
+#define SENDER_DELAY_MS  0
+```
+
+**Bước 2** — Build lại `service`, rồi ở **cửa sổ 1**:
+```cmd
+service.exe stop
+del D:\AvScan52\bin\cache52.bin
+service.exe start
+```
+
+**Bước 3** — **Cửa sổ 3**:
+```cmd
+client.exe scan "C:\Windows\explorer.exe" --verbose
+```
+
+Kết quả sẽ có thêm dòng:
+```
+[PE INFO  #7] jobId=1|machine=x64|subsystem=WINDOWS_GUI|isDll=0|isDriver=0|
+              isManaged=0|isSigned=1|sign=SIGNED_VALID|hasDebug=1|hasRich=1|
+              epRva=0xA9210|imageBase=0x140000000|sections=9
+```
+
+Đủ 11 thông số đề bài yêu cầu, và `sign=SIGNED_VALID` là kết quả `WinVerifyTrust`.
+
+> Lưu ý: với cấu hình này sẽ **không còn** dòng `[FLOW CTL]` — hàng đợi 128 ô không bao giờ đầy. Đó là lý do hai demo cần hai cấu hình khác nhau.
+
+---
+
 ## Cấu hình
 
 Các hằng số chính trong `service.c`:
