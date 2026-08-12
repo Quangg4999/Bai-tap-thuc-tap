@@ -172,8 +172,6 @@ service.exe uninstall
 
 ## Demo
 
-Bốn demo phủ 15/23 yêu cầu của đề bài.
-
 ### Chuẩn bị
 
 **Cửa sổ 1:**
@@ -433,46 +431,6 @@ if (st == PE_STRUCT_CORRUPT) {
 Mọi truy cập trong `pereader.c` đều kiểm tra biên bằng `InBuf()`, viết `len > size - off` thay vì `off + len > size` để **tránh tràn số** — phép cộng có thể quay vòng và cho kết quả sai.
 
 ---
-
-## Ảnh còn thiếu
-
-Một ảnh chưa chụp được: **dòng `[PE INFO]` với đủ 11 thông số PE**.
-
-Lý do: cấu hình demo đang đặt `OUTQ_SIZE = 4`, khiến `PE INFO` (lớp verbose) bị bỏ khi hàng đợi đầy — chính là hiện tượng `dropped=3` ở Demo 1.
-
-Muốn chụp ảnh này, trả cấu hình về giá trị thật rồi quét lại:
-
-**Bước 1** — Sửa `service.c`:
-```c
-#define OUTQ_SIZE        128
-#define SENDER_DELAY_MS  0
-```
-
-**Bước 2** — Build lại `service`, rồi ở **cửa sổ 1**:
-```cmd
-service.exe stop
-del D:\AvScan52\bin\cache52.bin
-service.exe start
-```
-
-**Bước 3** — **Cửa sổ 3**:
-```cmd
-client.exe scan "C:\Windows\explorer.exe" --verbose
-```
-
-Kết quả sẽ có thêm dòng:
-```
-[PE INFO  #7] jobId=1|machine=x64|subsystem=WINDOWS_GUI|isDll=0|isDriver=0|
-              isManaged=0|isSigned=1|sign=SIGNED_VALID|hasDebug=1|hasRich=1|
-              epRva=0xA9210|imageBase=0x140000000|sections=9
-```
-
-Đủ 11 thông số đề bài yêu cầu, và `sign=SIGNED_VALID` là kết quả `WinVerifyTrust`.
-
-> Lưu ý: với cấu hình này sẽ **không còn** dòng `[FLOW CTL]` — hàng đợi 128 ô không bao giờ đầy. Đó là lý do hai demo cần hai cấu hình khác nhau.
-
----
-
 ## Cấu hình
 
 Các hằng số chính trong `service.c`:
