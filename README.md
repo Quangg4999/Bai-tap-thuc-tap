@@ -98,9 +98,6 @@ D:\AvScan52\
 ├── service\      project VS
 └── client\       project VS
 ```
-
-> Đường dẫn phải **thuần ASCII, không dấu tiếng Việt**. Ký tự ngoài ASCII làm hỏng `BINARY_PATH_NAME` khi đăng ký service.
-
 ### File cho từng project
 
 | Project | File `.c` | Cấu hình đặc biệt |
@@ -296,9 +293,6 @@ service.exe start
 ![Cache vô hiệu khi update engine](5.2/docs/images/04-cache-invalidate.jpg)
 
 **Giải thích:**
-
-Ba dòng log kể trọn câu chuyện:
-
 ```
 Da nap engine.dll, phien ban = 201, fingerprint = 0x5A6734D7
 Cache: fingerprint cu 0x5A6734D6 != moi 0x5A6734D7 -> VO HIEU TOAN BO (6 muc)
@@ -338,7 +332,7 @@ client.exe scan "C:\Windows\explorer.exe" --verbose
 
 `fromCache=0` — file này **đã từng được quét** trước khi update engine, nhưng cache không còn dùng được. Engine mới chạy lại từ đầu, đủ 5 giai đoạn.
 
-Đây là bằng chứng khép kín: cache bị vô hiệu ở phía service (ảnh trên) và engine mới thực sự được gọi ở phía client (ảnh này).
+Đây là bằng chứng: cache bị vô hiệu ở phía service (ảnh trên) và engine mới thực sự được gọi ở phía client (ảnh này).
 
 > Sau demo, đổi `ENGINE_VERSION_MINOR` về `0` và build lại.
 
@@ -354,7 +348,6 @@ client.exe scan "C:\Windows\explorer.exe" --verbose
 ```
 
 > 📸 **ẢNH 6** — Dòng `[PE INFO]` đầy đủ 11 thông số
-> Chưa chụp được. Xem hướng dẫn ở mục [Ảnh còn thiếu](#ảnh-còn-thiếu) bên dưới.
 
 **Giải thích:**
 
