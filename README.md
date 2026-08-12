@@ -347,7 +347,6 @@ client.exe scan "C:\Windows\explorer.exe" --verbose
 client.exe scan "C:\Windows\explorer.exe" --verbose
 ```
 
-> 📸 **ẢNH 6** — Dòng `[PE INFO]` đầy đủ 11 thông số
 
 **Giải thích:**
 
